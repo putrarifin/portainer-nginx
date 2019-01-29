@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+  portainer:
+    image: portainer/portainer
+    ports:
+      - "9000:9000"
+    command: -H unix:///var/run/docker.sock
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    environment:
+      - VIRTUAL_HOST=dock.putrarifin.me
+      - VIRTUAL_PORT=9000
+      - LETSENCRYPT_HOST=dock.putrarifin.me
+      - LETSENCRYPT_EMAIL=putrarifin@gmail.com
+volumes:
+  portainer_data:
+networks:
+  default:
+    external:
+      name: nginx-proxy
